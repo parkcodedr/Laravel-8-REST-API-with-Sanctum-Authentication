@@ -14,7 +14,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        return Product::all();
     }
 
     /**
@@ -24,7 +24,6 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -35,7 +34,19 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'nullable',
+            'price' => 'required|numeric'
+        ]);
+
+        $product = Product::create([
+            'name' => request()->name,
+            'slug' => request()->slug,
+            'description' => request()->description,
+            'price' => request()->price,
+        ]);
+        return $product;
     }
 
     /**
@@ -46,7 +57,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return $product;
     }
 
     /**
