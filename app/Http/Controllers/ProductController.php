@@ -80,7 +80,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        return $product->update($request->all());
     }
 
     /**
@@ -89,8 +89,19 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+        return Product::destroy($id);
+    }
+
+    /**
+     * search for specified resource from storage.
+     *
+     * @param  string  $name
+     * @return \Illuminate\Http\Response
+     */
+    public function search($name)
+    {
+        return Product::where('name', 'like', '%' . $name . '%')->get();
     }
 }
