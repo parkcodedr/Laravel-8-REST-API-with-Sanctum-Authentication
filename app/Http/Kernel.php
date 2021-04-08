@@ -2,6 +2,8 @@
 
 namespace App\Http;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -64,4 +66,15 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     ];
+
+    protected $commands = [
+        //
+    ];
+
+    protected function schedule(Schedule $schedule)
+    {
+        $schedule->call(function () {
+            DB::table('recent_users')->delete();
+        })->daily();
+    }
 }
